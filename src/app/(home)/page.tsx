@@ -36,7 +36,7 @@ export default async function Home() {
         src="/banner-home-01.png"
         alt="até 55% de desconto só esse mês"
       />
-      <div className=" px-5">
+      <div className="px-5">
         <Categories />
       </div>
       <div>
