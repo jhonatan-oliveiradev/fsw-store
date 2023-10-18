@@ -3,11 +3,7 @@ type CustomHeadingProps = {
 };
 
 const CustomHeading = ({ title }: CustomHeadingProps) => {
-  return (
-    <div>
-      <h2 className="mb-3 pl-5 font-bold uppercase">{title}</h2>
-    </div>
-  );
+  return <h2 className="mb-3 pl-5 font-bold uppercase">{title}</h2>;
 };
 
 export default CustomHeading;
