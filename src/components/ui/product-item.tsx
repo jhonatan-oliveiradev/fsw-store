@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Badge } from "./badge";
+import RatedContent from "./rated-content";
 
 interface ProductItemProps {
   product: ProductWithTotalPrice;
@@ -50,10 +51,11 @@ const ProductItem = ({ product }: ProductItemProps) => {
               </>
             ) : (
               <p className="overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold">
-                R$ {product.basePrice.toFixed(2).replace(".", ",")}
+                R$ {Number(product.basePrice).toFixed(2).replace(".", ",")}
               </p>
             )}
           </div>
+          <RatedContent />
         </div>
       </div>
     </Link>
