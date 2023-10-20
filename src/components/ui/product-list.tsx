@@ -1,9 +1,7 @@
 "use client";
 
-import ProductItem from "@/components/ui/product-item";
-import RatedContent from "@/components/ui/rated-content";
-import Rating from "@/components/ui/rating";
 import { computeProductTotalPrice } from "@/helpers/product";
+import ProductItem from "@/components/ui/product-item";
 import { Product } from "@prisma/client";
 
 interface ProductListProps {
@@ -16,7 +14,6 @@ const ProductList = ({ products }: ProductListProps) => {
       {products.map((product) => (
         <div key={product.id} className="w-[170px] max-w-[170px]">
           <ProductItem product={computeProductTotalPrice(product)} />
-          <RatedContent />
         </div>
       ))}
     </div>
