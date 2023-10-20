@@ -4,20 +4,25 @@ import { Button } from "@/components/ui/button";
 import DiscountBadge from "@/components/ui/discount-badge";
 import Rating from "@/components/ui/rating";
 import { ProductWithTotalPrice } from "@/helpers/product";
+import { CartContext } from "@/providers/cart";
 import { ArrowLeftIcon, ArrowRightIcon, TruckIcon } from "lucide-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 interface ProductInfoProps {
-  product: Pick<
-    ProductWithTotalPrice,
-    "basePrice" | "description" | "discountPercentage" | "totalPrice" | "name"
-  >;
+  product: ProductWithTotalPrice;
 }
 
-const ProductInfo = ({
-  product: { name, basePrice, totalPrice, discountPercentage, description },
-}: ProductInfoProps) => {
+const ProductInfo = ({ product }: ProductInfoProps) => {
   const [quantity, setQuantity] = useState(1);
+
+  const { addProductToCart } = useContext(CartContext);
+
+  const handleAddToCartClick = () => {
+    addProductToCart({
+      ...product,
+      quantity,
+    });
+  };
 
   const handleRatingChange = (newRating: number) => {
     console.log(`Nova classificação: ${newRating}`);
@@ -34,7 +39,7 @@ const ProductInfo = ({
   return (
     <div className="flex flex-col px-5">
       <p className="text-sm text-muted-foreground/60">Novo | 10 vendidos</p>
-      <h2 className="text-lg">{name}</h2>
+      <h2 className="text-lg">{product.name}</h2>
       <div className="mt-2 flex flex-col justify-center gap-2">
         <p className="text-sm text-primary">Disponível em estoque</p>
         <div className="flex items-baseline gap-2">
@@ -51,15 +56,15 @@ const ProductInfo = ({
 
       <div className="flex items-center gap-1">
         <h3 className="text-xl font-bold">
-          R$ {totalPrice.toFixed(2).replace(".", ",")}
+          R$ {product.totalPrice.toFixed(2).replace(".", ",")}
         </h3>
-        {discountPercentage > 0 && (
-          <DiscountBadge>{discountPercentage}</DiscountBadge>
+        {product.discountPercentage > 0 && (
+          <DiscountBadge>{product.discountPercentage}</DiscountBadge>
         )}
       </div>
-      {discountPercentage > 0 && (
+      {product.discountPercentage > 0 && (
         <p className="text-sm text-muted-foreground/50 line-through">
-          De: R$ {Number(basePrice).toFixed(2).replace(".", ",")}
+          De: R$ {Number(product.basePrice).toFixed(2).replace(".", ",")}
         </p>
       )}
 
@@ -84,11 +89,14 @@ const ProductInfo = ({
       <div className="mt-8 flex flex-col gap-3">
         <h3 className="font-bold">Descrição</h3>
         <p className="text-justify text-sm text-muted-foreground">
-          {description}
+          {product.description}
         </p>
       </div>
 
-      <Button className="mt-8 font-bold uppercase">
+      <Button
+        className="mt-8 font-bold uppercase"
+        onClick={handleAddToCartClick}
+      >
         Adicionar ao carrinho
       </Button>
 
