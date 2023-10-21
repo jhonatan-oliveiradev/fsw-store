@@ -7,20 +7,18 @@ import { X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-interface CustomDialogPortalProps extends SheetPrimitive.DialogPortalProps {
-  className?: string;
-  children?: React.ReactNode;
-  container?: HTMLElement | null | undefined;
-  forceMount?: true | undefined;
-}
-
 const Sheet = SheetPrimitive.Root;
+
 const SheetTrigger = SheetPrimitive.Trigger;
+
 const SheetClose = SheetPrimitive.Close;
+
 const SheetPortal = ({
+  // @ts-expect-error - `className` is not a valid prop for `DialogPortal`
   className,
   ...props
-}: CustomDialogPortalProps): React.ReactElement => (
+}: SheetPrimitive.DialogPortalProps) => (
+  // @ts-expect-error - `className` is not a valid prop for `DialogPortal`
   <SheetPrimitive.Portal className={cn(className)} {...props} />
 );
 SheetPortal.displayName = SheetPrimitive.Portal.displayName;
