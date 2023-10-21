@@ -49,7 +49,12 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("@fsw-store/cart-products", JSON.stringify(products));
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem(
+        "@fsw-store/cart-products",
+        JSON.stringify(products),
+      );
+    }
   }, [products]);
 
   // Total sem descontos
